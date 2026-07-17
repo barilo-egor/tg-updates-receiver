@@ -1,0 +1,55 @@
+app:
+  url: "https://example.com"
+spring:
+  cloud:
+    config:
+      enabled: false
+  profiles:
+    active: "test"
+bots:
+  configs:
+    - username: testtgbupdatereceivebot
+      maxConnections: 35
+      token: "9876543210:ZYXwvuTsrQPonMlKjIHgFedCBA987654321"
+      secret: "Bb5WaZERG2KxwOd6TfN211WTLEZzfheZ"
+      updateDeliveryMethod: "WEBHOOK"
+      ip: "123.12.12.123"
+      topic: "test-update-receive-v1"
+      dropPendingUpdatesOnStart: true
+      dropPendingUpdatesOnShutdown: false
+    - username: webhooktest1bot
+      maxConnections: 40
+      token: "123456789:AAHdfg_89DfjklSDF9034_kljDFG89Acls"
+      secret: "2yuxkryOic6kycUuXTujBxakB3Mmb8ZZ"
+      updateDeliveryMethod: "WEBHOOK"
+      ip: "234.23.23.234"
+      topic: "webhooktest1bot-update-receive-v2"
+      dropPendingUpdatesOnStart: true
+      dropPendingUpdatesOnShutdown: false
+    - username: "WebHOOK_TEST_BOT"
+      maxConnections: 50
+      token: "5566778899:XYZ-abc123_DEF456_GHI789_jklMNOpqr"
+      secret: "igtv7tnCmm35Gktoxx7efvTQKeLN2ftJ"
+      updateDeliveryMethod: "WEBHOOK"
+      ip: "255.25.25.225"
+      topic: "webhooktestbot-update-receive-v1"
+      dropPendingUpdatesOnStart: true
+      dropPendingUpdatesOnShutdown: false
+    - username: testlongpollingbot
+      maxConnections: 100
+      token: "987654321:ABCdefGHIjklMNOpqrSTUvwxYZ123456789"
+      secret: "iscvg1vR04TxxEYl21fpP9bFtMqYajoN"
+      updateDeliveryMethod: "POLLING"
+      ip: "234.45.45.234"
+      topic: "pollingbot-update-receive-v1"
+      dropPendingUpdatesOnStart: true
+      dropPendingUpdatesOnShutdown: false
+    - username: 2pollinglongbot
+      maxConnections: 1
+      token: "2048591733:AAFlk39_dKjLMs0923_lkFDMK3k239KDFms"
+      secret: "EKFet2AHngP1r97q0x0RHgZbIbO7WOwq"
+      updateDeliveryMethod: "POLLING"
+      ip: "99.56.56.99"
+      topic: "testlongpolling-update-receive-v2"
+      dropPendingUpdatesOnStart: true
+      dropPendingUpdatesOnShutdown: false

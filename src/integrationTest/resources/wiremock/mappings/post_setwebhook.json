@@ -1,0 +1,13 @@
+{
+  "request": {
+    "method": "POST",
+    "urlPattern": "/bot\\d+:[A-Za-z0-9_-]+/setWebhook"
+  },
+  "response": {
+    "status": 200,
+    "body": "{\"ok\":true,\"result\":true,\"description\":\"Webhook was set\"}",
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}

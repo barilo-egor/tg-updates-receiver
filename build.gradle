@@ -1,0 +1,88 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '4.1.0'
+    id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'tgb.cryptoexchange'
+version = '0.1.0'
+description = 'tg-updates-receiver'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    set('springCloudVersion', "2025.1.2")
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-kafka'
+    implementation 'org.springframework.boot:spring-boot-starter-webmvc'
+    implementation 'org.springframework.cloud:spring-cloud-starter-config'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    testImplementation 'org.springframework.boot:spring-boot-starter-kafka-test'
+    testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    implementation 'org.telegram:telegrambots-webhook:10.0.0'
+    implementation 'org.telegram:telegrambots-longpolling:10.0.0'
+    implementation 'org.telegram:telegrambots-client:10.0.0'
+    implementation 'org.projectlombok:lombok:1.18.46'
+    annotationProcessor 'org.projectlombok:lombok'
+    implementation 'io.micrometer:micrometer-registry-prometheus:1.17.0'
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+bootJar {
+    archiveFileName = 'tg-updates-receiver.jar'
+}
+
+testing {
+    suites {
+        test {
+            useJUnitJupiter()
+        }
+
+        integrationTest(JvmTestSuite) {
+            dependencies {
+                implementation project()
+                implementation 'org.springframework.boot:spring-boot-starter-test'
+                implementation 'org.springframework.boot:spring-boot-starter-kafka-test'
+                implementation 'org.springframework.boot:spring-boot-starter-webmvc-test'
+                implementation 'org.testcontainers:testcontainers-kafka:2.0.5'
+                implementation 'org.telegram:telegrambots-meta:10.0.0'
+                implementation 'org.testcontainers:testcontainers:2.0.5'
+                implementation 'org.testcontainers:testcontainers-junit-jupiter:2.0.5'
+                implementation 'org.wiremock.integrations:wiremock-spring-boot:4.1.0'
+            }
+
+            targets {
+                configureEach {
+                    testTask.configure {
+                        shouldRunAfter(test)
+                    }
+                }
+            }
+        }
+    }
+}
+
+tasks.named('check') {
+    dependsOn(testing.suites.integrationTest)
+}

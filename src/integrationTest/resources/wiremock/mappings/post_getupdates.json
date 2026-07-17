@@ -1,0 +1,15 @@
+{
+  "id": "7197757b-0360-4804-bc7c-b058eb580374",
+  "request": {
+    "method": "POST",
+    "urlPattern": "/bot\\d+:[A-Za-z0-9_-]+/getupdates"
+  },
+  "response": {
+    "status": 200,
+    "fixedDelayMilliseconds": 100,
+    "body": "{\"ok\":true,\"result\":[]}",
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}

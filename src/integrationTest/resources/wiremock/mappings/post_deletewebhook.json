@@ -1,0 +1,13 @@
+{
+  "request": {
+    "method": "POST",
+    "urlPattern": "/bot\\d+:[A-Za-z0-9_-]+/deleteWebhook"
+  },
+  "response": {
+    "status": 200,
+    "body": "{\"ok\":true,\"result\":true,\"description\":\"Webhook was deleted\"}",
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}

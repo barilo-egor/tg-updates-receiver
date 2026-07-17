@@ -1,0 +1,17 @@
+app:
+  url: "https://example.com"
+spring:
+  cloud:
+    config:
+      enabled: false
+bots:
+  configs:
+    - username: testtgbupdatereceivebot
+      maxConnections: 35
+      token: "9876543210:ZYXwvuTsrQPonMlKjIHgFedCBA987654321"
+      secret: "Bb5WaZERG2KxwOd6TfN211WTLEZzfheZ"
+      updateDeliveryMethod: "POLLING"
+      ip: "123.12.12.123"
+      topic: "test-update-receive-v1"
+      dropPendingUpdatesOnStart: true
+      dropPendingUpdatesOnShutdown: false
