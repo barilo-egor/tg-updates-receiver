@@ -1,11 +1,10 @@
 package tgb.cryptoexchange.tgupdatesreceiver.bot.webhook;
 
-import okhttp3.OkHttpClient;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.telegram.telegrambots.meta.TelegramUrl;
+import tgb.cryptoexchange.tgupdatesreceiver.bot.TelegramClientRegistry;
 import tgb.cryptoexchange.tgupdatesreceiver.bot.UpdateConsumer;
 import tgb.cryptoexchange.tgupdatesreceiver.config.AppConfiguration;
 import tgb.cryptoexchange.tgupdatesreceiver.config.BotsConfiguration;
@@ -23,12 +22,12 @@ class WebhookBotFactoryTest {
     @ParameterizedTest
     void create_shouldCreateWebhookBot(String username) {
         BotsConfiguration.BotConfig botConfig = mock(BotsConfiguration.BotConfig.class);
+        TelegramClientRegistry telegramClientRegistry = mock(TelegramClientRegistry.class);
         when(botConfig.username()).thenReturn(username);
         when(botConfig.token()).thenReturn("token");
         UpdateConsumer updateConsumer = mock(UpdateConsumer.class);
         AppConfiguration appConfiguration = mock(AppConfiguration.class);
-        OkHttpClient okHttpClient = mock(OkHttpClient.class);
-        WebhookBotFactory webhookBotFactory = new WebhookBotFactory(updateConsumer, appConfiguration, okHttpClient, TelegramUrl.DEFAULT_URL);
+        WebhookBotFactory webhookBotFactory = new WebhookBotFactory(updateConsumer, appConfiguration, telegramClientRegistry);
         WebhookBot actual = webhookBotFactory.create(botConfig);
         assertEquals("/webhook/" + username, actual.getBotPath());
     }

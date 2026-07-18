@@ -1,10 +1,8 @@
 package tgb.cryptoexchange.tgupdatesreceiver.bot.webhook;
 
-import okhttp3.OkHttpClient;
 import org.springframework.stereotype.Service;
-import org.telegram.telegrambots.client.okhttp.OkHttpTelegramClient;
-import org.telegram.telegrambots.meta.TelegramUrl;
 import tgb.cryptoexchange.tgupdatesreceiver.bot.BotConfig;
+import tgb.cryptoexchange.tgupdatesreceiver.bot.TelegramClientRegistry;
 import tgb.cryptoexchange.tgupdatesreceiver.bot.UpdateConsumer;
 import tgb.cryptoexchange.tgupdatesreceiver.config.AppConfiguration;
 
@@ -15,21 +13,15 @@ public class WebhookBotFactory {
 
     private final String url;
 
-    private final OkHttpClient okHttpClient;
+    private final TelegramClientRegistry telegramClientRegistry;
 
-    private final TelegramUrl telegramUrl;
-
-    public WebhookBotFactory(UpdateConsumer updateConsumer, AppConfiguration appConfiguration,
-                             OkHttpClient okHttpClient, TelegramUrl telegramUrl) {
+    public WebhookBotFactory(UpdateConsumer updateConsumer, AppConfiguration appConfiguration, TelegramClientRegistry telegramClientRegistry) {
         this.updateConsumer = updateConsumer;
         this.url = appConfiguration.url();
-        this.okHttpClient = okHttpClient;
-        this.telegramUrl = telegramUrl;
+        this.telegramClientRegistry = telegramClientRegistry;
     }
 
     public WebhookBot create(BotConfig botConfig) {
-        return new WebhookBot(url, botConfig, updateConsumer,
-                new OkHttpTelegramClient(okHttpClient, botConfig.token(), telegramUrl)
-        );
+        return new WebhookBot(url, botConfig, updateConsumer, telegramClientRegistry.get(botConfig.username()));
     }
 }
