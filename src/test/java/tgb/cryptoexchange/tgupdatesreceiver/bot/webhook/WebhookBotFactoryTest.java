@@ -24,7 +24,6 @@ class WebhookBotFactoryTest {
         BotsConfiguration.BotConfig botConfig = mock(BotsConfiguration.BotConfig.class);
         TelegramClientRegistry telegramClientRegistry = mock(TelegramClientRegistry.class);
         when(botConfig.username()).thenReturn(username);
-        when(botConfig.token()).thenReturn("token");
         UpdateConsumer updateConsumer = mock(UpdateConsumer.class);
         AppConfiguration appConfiguration = mock(AppConfiguration.class);
         WebhookBotFactory webhookBotFactory = new WebhookBotFactory(updateConsumer, appConfiguration, telegramClientRegistry);
